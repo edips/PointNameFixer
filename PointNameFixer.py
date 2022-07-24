@@ -75,7 +75,9 @@ class App(ttk.Frame):
         joindef_asbuilt = gdf_asbuilt.sjoin(gdf_csv, how="left")
         return joindef_asbuilt
 
-    # 
+    # This function gets merged csv dataframe. Creates asbuilt dataframe from pts file. 
+    # Process the asbuilt dataframe with merged dataframe using spatial join. 
+    # Updates Point_Name column from merged dataframe. Then exports it to a pts file.
     def process_data( self, asbuilt_file ):
         # save config variables when clicking Process button
         self.save_config_vars()
@@ -101,6 +103,8 @@ class App(ttk.Frame):
         # Export the dataframe to csv. na_rep="" : Fill the Nan values with spaces, disable index, include header
         joindef_asbuilt.to_csv(output_file_name, sep='\t', encoding='utf-8', na_rep="", index=False, header=True)
 
+    # this function gets all asbuilt pts file paths to a list. 
+    # Then iterates per file to process with process_data(dir_path) function
     def asbuilt_output(self):
         asbuilt_list = self.find_asbuilts( self.asbuilt_path.get() )
         for i in asbuilt_list:
